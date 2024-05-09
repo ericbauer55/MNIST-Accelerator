@@ -11,11 +11,11 @@ from torch.optim.lr_scheduler import StepLR
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(1, 32, 3, 1)
-        self.conv2 = nn.Conv2d(32, 64, 3, 1)
+        self.conv1 = nn.Conv2d(1, 16, 3, 1)  #1,32,3,1
+        self.conv2 = nn.Conv2d(16, 32, 3, 1) #32,64,3,1
         self.dropout1 = nn.Dropout(0.25)
         self.dropout2 = nn.Dropout(0.5)
-        self.fc1 = nn.Linear(9216, 128)
+        self.fc1 = nn.Linear(800, 128) #9216
         self.fc2 = nn.Linear(128, 10)
 
     def forward(self, x):
@@ -141,7 +141,7 @@ def main():
         print(type(real_samples[i]))
         print(real_samples[i].shape)
         print(real_samples[i])
-        utils.save_image(real_samples[i], 'Real_Images/real_image{}.png'.format(i), normalize=False)
+        #utils.save_image(real_samples[i], 'Real_Images/real_image{}.png'.format(i), normalize=False)
 
     model = Net().to(device)
     optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
