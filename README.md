@@ -5,9 +5,12 @@ This project is for a neural network accelerator ASIC for text recognition in MN
 Due to constraints with the fab organization (Tiny Tapeout), the following goals have been outlined.
 
 Goals:
-*classify at least 2 of the 10 digits (Ex. '3' and '5')
-*recall if at least 0.8
-*increase performance (speed) to classify image (benchmark: python-based neural net on a raspberry pi.)
+
+* classify at least 2 of the 10 digits (Ex. '3' and '5')
+
+* recall of at least 0.8
+
+* increase performance (speed) to classify image (benchmark: python-based neural net on a raspberry pi.)
 
 Diagram:
 
