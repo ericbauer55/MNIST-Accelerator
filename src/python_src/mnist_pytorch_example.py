@@ -4,18 +4,18 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torchvision import datasets, transforms, utils
+from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 
 
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(1, 16, 3, 1)  #1,32,3,1
-        self.conv2 = nn.Conv2d(16, 32, 3, 1) #32,64,3,1
+        self.conv1 = nn.Conv2d(1, 32, 3, 1)
+        self.conv2 = nn.Conv2d(32, 64, 3, 1)
         self.dropout1 = nn.Dropout(0.25)
         self.dropout2 = nn.Dropout(0.5)
-        self.fc1 = nn.Linear(800, 128) #9216
+        self.fc1 = nn.Linear(9216, 128)
         self.fc2 = nn.Linear(128, 10)
 
     def forward(self, x):
@@ -117,31 +117,16 @@ def main():
         train_kwargs.update(cuda_kwargs)
         test_kwargs.update(cuda_kwargs)
 
-    image_threshold = 0
     transform=transforms.Compose([
         transforms.ToTensor(),
-        transforms.Normalize((0.1307,), (0.3081,)),
-        transforms.Resize(size=(14,14)),             # Preprocessing Step: Reduce Image size
-        lambda x: x>image_threshold,                 # Preprocessing Step: Convert grayscale to Binary Image (Source: https://discuss.pytorch.org/t/binarize-image-on-training/12576/3)
-        lambda x: x.float() #,
-        #transforms.Normalize(mean=[-0.5],std=[0.5])
+        transforms.Normalize((0.1307,), (0.3081,))
         ])
     dataset1 = datasets.MNIST('../data', train=True, download=True,
                        transform=transform)
     dataset2 = datasets.MNIST('../data', train=False,
                        transform=transform)
-
     train_loader = torch.utils.data.DataLoader(dataset1,**train_kwargs)
     test_loader = torch.utils.data.DataLoader(dataset2, **test_kwargs)
-
-    # Verify images are being pre-processed correctly
-    real_samples = next(iter(train_loader))
-    print(type(real_samples))
-    for i in range(1):
-        print(type(real_samples[i]))
-        print(real_samples[i].shape)
-        print(real_samples[i])
-        #utils.save_image(real_samples[i], 'Real_Images/real_image{}.png'.format(i), normalize=False)
 
     model = Net().to(device)
     optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
