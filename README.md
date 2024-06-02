@@ -44,6 +44,19 @@ stores the 28x1 image as well as the weights and biases for the neural network. 
 ## Neural Network
 Configure neural net with weights and biases and begin processing image from memory. return the classification of the image as a single byte as well as the confidence.
 
+Based on [Example Pytorch MNIST](https://github.com/pytorch/examples/tree/main/mnist) neural network design with the following modifications to reduce size for chip design:
+* Input Dimensionality Reduction - reduced images from 28x28 grayscale to 14x14 black/white images
+* Pruning - reduce connections and neurons in the network
+* Quantization - reduce weight size
+
+The neural network was first implemented in Python with Pytorch and tested to meet objected before implementing into Verilog for HW design.
+
+### Pytorch NN
+
+
+### Verilog Implementation
+
+
 ## Output
 Display the decoded digit on 7 segment display. This section should incorporate logic to decode a binary coded decimal (BCD) into 7 segment logic for external 7 segment display.
 Additionally, the output layer should trigger an additional digital pin as a flag to signal the image has finished being processed and another image can be fed in over I2C
