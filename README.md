@@ -41,7 +41,7 @@ Wait to recieve image over I2C. Read 28x1 image into memory. Read weights and bi
 ## Memory
 stores the 28x1 image as well as the weights and biases for the neural network. Memory will only be able to hold one image at a time.
 
-## Neutal Network
+## Neural Network
 Configure neural net with weights and biases and begin processing image from memory. return the classification of the image as a single byte as well as the confidence.
 
 ## Output
